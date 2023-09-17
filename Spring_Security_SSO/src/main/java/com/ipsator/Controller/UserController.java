@@ -34,35 +34,35 @@ public class UserController {
 	@Autowired
 	private UserService userService; 
 
-	@PostMapping("/addUser")
-	public ResponseEntity<User> addUser(@RequestBody User user) {
-		try {
-			User addedUser = userService.addUser(user);
-			return new ResponseEntity<>(addedUser, HttpStatus.CREATED);
-		} catch (UserException e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	@PutMapping("/updateUser/{id}")
-	public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Integer id) {
-		try {
-			User updatedUser = userService.updateUser(user, id);
-			return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-		} catch (UserException e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	@GetMapping("/getUser/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable Integer id) {
-		try {
-			User user = userService.getUserById(id);
-			return new ResponseEntity<>(user, HttpStatus.OK);
-		} catch (UserException e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-	}
+//	@PostMapping("/addUser")
+//	public ResponseEntity<User> addUser(@RequestBody User user) {
+//		try {
+//			User addedUser = userService.addUser(user);
+//			return new ResponseEntity<>(addedUser, HttpStatus.CREATED);
+//		} catch (UserException e) {
+//			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//		}
+//	}
+//
+//	@PutMapping("/updateUser/{id}")
+//	public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Integer id) {
+//		try {
+//			User updatedUser = userService.updateUser(user, id);
+//			return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+//		} catch (UserException e) {
+//			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//		}
+//	}
+//
+//	@GetMapping("/getUser/{id}")
+//	public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+//		try {
+//			User user = userService.getUserById(id);
+//			return new ResponseEntity<>(user, HttpStatus.OK);
+//		} catch (UserException e) {
+//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//		}
+//	}
 
 	@GetMapping("/getUsers")
 	public ResponseEntity<List<User>> getUsers() {
