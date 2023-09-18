@@ -7,22 +7,37 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import org.springframework.security.config.http.SessionCreationPolicy;
-
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
 
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Configuration class for security settings.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+	/**
+	 * Bean for AuthenticationManager.
+	 *
+	 * @param builder AuthenticationConfiguration object.
+	 * @return AuthenticationManager object.
+	 * @throws Exception if any error occurs.
+	 */
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {
 		return builder.getAuthenticationManager();
 	}
 
+	/**
+	 * Bean for SecurityFilterChain.
+	 *
+	 * @param http HttpSecurity object.
+	 * @return SecurityFilterChain object.
+	 * @throws Exception if any error occurs.
+	 */
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -36,6 +51,11 @@ public class SecurityConfig {
 
 	}
 
+	/**
+	 * Bean for JwtDecoder.
+	 *
+	 * @return JwtDecoder object.
+	 */
 	@Bean
 	public JwtDecoder jwtDecoder() {
 		return JwtDecoders.fromIssuerLocation("https://accounts.google.com");

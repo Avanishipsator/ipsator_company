@@ -18,6 +18,11 @@ import com.ipsator.Entity.LoginUser;
 import com.ipsator.Entity.ServiceResponse;
 import com.ipsator.Service.LoginUserService;
 
+/**
+ * The UserController class is a REST controller that handles various operations
+ * related to user profiles. It uses Spring's ResponseEntity to return data and
+ * HTTP status codes.
+ */
 @RestController
 
 public class UserController {
@@ -27,6 +32,15 @@ public class UserController {
 	@Autowired
 	private LoginUserService lu;
 
+	/**
+	 * Retrieves the user's profile using the provided OAuth2User principal. If
+	 * successful, it returns a ServiceResponse with the user's profile and a
+	 * success message. If an exception occurs, it returns a ServiceResponse with an
+	 * error message and a status of INTERNAL_SERVER_ERROR.
+	 *
+	 * @param principal OAuth2User
+	 * @return ResponseEntity<ServiceResponse<LoginUser>>
+	 */
 	@GetMapping("/profile")
 	public ResponseEntity<ServiceResponse<LoginUser>> getUserProfile(@AuthenticationPrincipal OAuth2User principal) {
 //		System.out.println(principal);
@@ -42,7 +56,7 @@ public class UserController {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
 			ServiceResponse<LoginUser> response = new ServiceResponse<>(true, savedLoggedInUser,
-					"User profile retrieved successfully and its JWT Tokent is ");
+					"User profile retrieved successfully ! ");
 
 			return ResponseEntity.ok().body(response);
 
@@ -52,6 +66,12 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Retrieves all user details and returns them in a ServiceResponse with a
+	 * success message.
+	 *
+	 * @return ResponseEntity<ServiceResponse<List<LoginUser>>>
+	 */
 	@GetMapping("/AllLogInUser")
 	public ResponseEntity<ServiceResponse<List<LoginUser>>> getAllUserDetails() {
 		List<LoginUser> AllUser = lu.getAllUserDetails();
@@ -60,6 +80,14 @@ public class UserController {
 
 	}
 
+	/**
+	 * Retrieves a user's profile by their ID. If the user is found, it returns a
+	 * ServiceResponse with the user's profile and a success message. If the user is
+	 * not found, it returns a ServiceResponse with an error message.
+	 *
+	 * @param id Integer
+	 * @return ResponseEntity<ServiceResponse<LoginUser>>
+	 */
 	@GetMapping("/profile/{id}")
 	public ResponseEntity<ServiceResponse<LoginUser>> getUserById(@PathVariable Integer id) {
 		LoginUser LgUser = lu.getUserById(id);
